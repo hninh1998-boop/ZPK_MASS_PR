@@ -1,0 +1,34 @@
+{
+  "formatVersion": "2",
+  "header": {
+    "description": "An SAP Fiori application.",
+    "originalLanguage": "en",
+    "abapLanguageVersion": "cloudDevelopment"
+  },
+  "generalInformation": {
+    "appType": "ui5",
+    "catalogId": "SAP_TC_UI5_REPO_UIAD",
+    "targetMappingTitle": "Mass Change PR"
+  },
+  "ui5AppDetails": {
+    "appId": "zmassprov4"
+  },
+  "navigation": {
+    "targetMappingId": "UI5R_0128D874A45313666C260A69C519464DC974DFF5_TM",
+    "semanticObject": "zmass_pr_ov2",
+    "action": "display",
+    "desktop": true,
+    "tablet": true,
+    "phone": true
+  },
+  "tiles": [
+    {
+      "id": "UI5R_0128D874A45313666C260A69C519464DC974DFF5_AL",
+      "tileType": "static",
+      "isDefault": true,
+      "standard": {
+        "title": "Mass Change PR"
+      }
+    }
+  ]
+}
