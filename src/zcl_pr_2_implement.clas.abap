@@ -96,7 +96,9 @@ ENDCLASS.
 
 
 
-CLASS zcl_pr_2_implement IMPLEMENTATION.
+CLASS ZCL_PR_2_IMPLEMENT IMPLEMENTATION.
+
+
   METHOD earlynumbering_create.
     LOOP AT entities ASSIGNING FIELD-SYMBOL(<f_entities>) WHERE uuid IS NOT INITIAL.
       APPEND CORRESPONDING #( <f_entities> ) TO mapped-managefilepr2.
@@ -129,32 +131,6 @@ CLASS zcl_pr_2_implement IMPLEMENTATION.
                       %is_draft = <f_entities>-%is_draft ) TO mapped-managefilepr2.
     ENDLOOP.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD uploadexcelpr2.
@@ -205,28 +181,6 @@ CLASS zcl_pr_2_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD setstatustoopenpr2.
     DATA lv_cnt1 TYPE i.
     DATA lv_cnt2 TYPE i.
@@ -244,29 +198,6 @@ CLASS zcl_pr_2_implement IMPLEMENTATION.
 
     ev_next = COND i( WHEN lv_cnt1 >= lv_cnt2 THEN lv_cnt1 + 1 ELSE lv_cnt2 + 1 ).
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD parse_excel.
@@ -289,29 +220,6 @@ CLASS zcl_pr_2_implement IMPLEMENTATION.
       DELETE et_file INDEX 1.
     ENDIF.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD process_data_raw.
@@ -345,28 +253,6 @@ CLASS zcl_pr_2_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD del_duplicate_data_file.
     DATA lt_seen TYPE HASHED TABLE OF string WITH UNIQUE KEY table_line.
 
@@ -394,27 +280,6 @@ CLASS zcl_pr_2_implement IMPLEMENTATION.
       ENDIF.
     ENDLOOP.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD build_file_create.
@@ -459,28 +324,6 @@ CLASS zcl_pr_2_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD get_file_create.
     parse_excel( EXPORTING iv_filecontent = iv_filecontent
                  IMPORTING et_file        = DATA(lt_file) ).
@@ -504,26 +347,6 @@ CLASS zcl_pr_2_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD processing_api.
     LOOP AT ct_data ASSIGNING FIELD-SYMBOL(<lfs_data>).
       CASE <lfs_data>-type.
@@ -538,27 +361,6 @@ CLASS zcl_pr_2_implement IMPLEMENTATION.
       ENDCASE.
     ENDLOOP.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD get_new_status.
@@ -592,25 +394,6 @@ CLASS zcl_pr_2_implement IMPLEMENTATION.
       ELSE zcl_pr_2_top=>file_status-inprocess    " P = In process
     ).
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD insert.
@@ -665,25 +448,6 @@ CLASS zcl_pr_2_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD validate_date.
     IF cs_data-delivery_date IS NOT INITIAL.
       IF strlen( cs_data-delivery_date ) = 10
@@ -702,34 +466,6 @@ CLASS zcl_pr_2_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD processing_insert.
     "Validate date
     validate_date( IMPORTING ev_error = DATA(lv_error)
@@ -743,33 +479,6 @@ CLASS zcl_pr_2_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD processing_update.
     "Validate date
     validate_date( IMPORTING ev_error = DATA(lv_error)
@@ -781,29 +490,6 @@ CLASS zcl_pr_2_implement IMPLEMENTATION.
       update( CHANGING cs_data = cs_data ).
     ENDIF.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD update.
@@ -838,47 +524,6 @@ CLASS zcl_pr_2_implement IMPLEMENTATION.
         ev_message     = cs_data-message
     ).
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD get_body_update.
@@ -930,25 +575,6 @@ CLASS zcl_pr_2_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD processing_delete.
     DATA: lv_endpoint TYPE string,
           lv_body     TYPE string.
@@ -979,29 +605,4 @@ CLASS zcl_pr_2_implement IMPLEMENTATION.
         ev_message     = cs_data-message
     ).
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ENDCLASS.

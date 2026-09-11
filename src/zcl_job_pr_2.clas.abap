@@ -25,7 +25,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_job_pr_2 IMPLEMENTATION.
+CLASS ZCL_JOB_PR_2 IMPLEMENTATION.
 
 
   METHOD if_apj_dt_exec_object~get_parameters.
@@ -38,25 +38,6 @@ CLASS zcl_job_pr_2 IMPLEMENTATION.
        changeable_ind = abap_true )
    ).
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD if_apj_rt_exec_object~execute.
@@ -108,30 +89,6 @@ CLASS zcl_job_pr_2 IMPLEMENTATION.
       COMMIT WORK AND WAIT.
     ENDLOOP.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD if_oo_adt_classrun~main.

@@ -91,6 +91,7 @@ with additional save
       PurchasingGroup          = purchasing_group;
       DeliveryDate             = delivery_date;
       RequirementTracking      = requirement_tracking;
+      RequestedBy              = requested_by;
       CreatedBy                = created_by;
       CreatedAt                = created_at;
       LastChangedBy            = last_changed_by;

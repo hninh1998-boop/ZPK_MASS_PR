@@ -150,6 +150,7 @@ CLASS lhc_ManageFilePR1 DEFINITION INHERITING FROM cl_abap_behavior_handler.
              PurchasingGroup          TYPE string,
              DeliveryDate             TYPE string,
              RequirementTracking      TYPE string,
+             RequestedBy              TYPE string,
            END OF ty_file_upload.
 
     METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
@@ -528,6 +529,13 @@ CLASS lhc_ManageFilePR1 IMPLEMENTATION.
       <lfs_data_file>-PurchasingGroup          = |{ ls_file-PurchasingGroup ALPHA = IN }|.
       <lfs_data_file>-DeliveryDate             = ls_file-DeliveryDate.
       <lfs_data_file>-RequirementTracking      = ls_file-RequirementTracking.
+      <lfs_data_file>-RequestedBy               = ls_file-RequestedBy.
+
+      " ── Validate: Type I bắt buộc phải có Requested By ──────────
+      IF <lfs_data_file>-Type = 'I' AND <lfs_data_file>-RequestedBy IS INITIAL.
+        <lfs_data_file>-message     = 'Requisitioner Name là bắt buộc khi Type = I'.
+        <lfs_data_file>-messagetype = 'E'.
+      ENDIF.
     ENDLOOP.
 
     " ── 4. Xóa duplicate trong file ──────────────────────────────
@@ -551,7 +559,8 @@ CLASS lhc_ManageFilePR1 IMPLEMENTATION.
         && ls_seen_dup-PurReqnItemCurrency
         && ls_seen_dup-PurchasingGroup
         && ls_seen_dup-DeliveryDate
-        && ls_seen_dup-RequirementTracking.
+        && ls_seen_dup-RequirementTracking
+        && ls_seen_dup-RequestedBy.
 
       INSERT lv_key INTO TABLE lt_seen.
       IF sy-subrc <> 0.
@@ -593,6 +602,7 @@ CLASS lhc_ManageFilePR1 IMPLEMENTATION.
               PurchasingGroup           = ls_data_file-PurchasingGroup
               DeliveryDate              = ls_data_file-DeliveryDate
               RequirementTracking       = ls_data_file-RequirementTracking
+              RequestedBy               = ls_data_file-RequestedBy
 
               message     = ls_data_file-message
               messagetype = ls_data_file-messagetype
@@ -632,6 +642,7 @@ CLASS lhc_ManageFilePR1 IMPLEMENTATION.
         PurchasingGroup
         DeliveryDate
         RequirementTracking
+        RequestedBy
 
         message
         messagetype
@@ -640,6 +651,20 @@ CLASS lhc_ManageFilePR1 IMPLEMENTATION.
       MAPPED   DATA(lt_mapped_create)
       REPORTED DATA(lt_mapped_reported)
       FAILED   DATA(lt_failed_create).
+
+    " ── 7. Update Status của Header PR1 ───────────────────────────
+    " Nếu có ít nhất 1 dòng lỗi (vd: Type I thiếu RequestedBy) → Status = 'P' (In Process, cần sửa lại file)
+    " Nếu không có lỗi → Status = 'D' (Done)
+    DATA(lv_has_error) = xsdbool( line_exists( lt_data_file[ messagetype = 'E' ] ) ).
+
+    MODIFY ENTITIES OF zi_m_pr_1 IN LOCAL MODE
+      ENTITY ManageFilePR1
+      UPDATE FIELDS ( Status )
+      WITH VALUE #( ( %tky   = <f_file>-%tky
+                       Status = COND #( WHEN lv_has_error = abap_true THEN 'P' ELSE 'M' ) ) )
+      MAPPED   DATA(lt_mapped_update)
+      REPORTED DATA(lt_mapped_reported_update)
+      FAILED   DATA(lt_failed_update).
   ENDMETHOD.
 
 ENDCLASS.

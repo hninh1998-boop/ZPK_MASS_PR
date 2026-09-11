@@ -25,7 +25,8 @@ ENDCLASS.
 
 
 
-CLASS zcl_job_pr_1 IMPLEMENTATION.
+CLASS ZCL_JOB_PR_1 IMPLEMENTATION.
+
 
   METHOD if_apj_rt_exec_object~execute.
     LOOP AT it_parameters INTO DATA(ls_param).
@@ -78,27 +79,6 @@ CLASS zcl_job_pr_1 IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD if_apj_dt_exec_object~get_parameters.
     et_parameter_def = VALUE #(
      ( selname = 'HDR_ID'
@@ -109,31 +89,6 @@ CLASS zcl_job_pr_1 IMPLEMENTATION.
        changeable_ind = abap_true )
    ).
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD if_oo_adt_classrun~main.
@@ -153,25 +108,4 @@ CLASS zcl_job_pr_1 IMPLEMENTATION.
         "handle exception
     ENDTRY.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ENDCLASS.

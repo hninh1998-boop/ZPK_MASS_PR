@@ -20,7 +20,9 @@ ENDCLASS.
 
 
 
-CLASS zcl_call_api_pr_1 IMPLEMENTATION.
+CLASS ZCL_CALL_API_PR_1 IMPLEMENTATION.
+
+
   METHOD main.
     DATA: lv_url  TYPE string,
           lv_pref TYPE string.

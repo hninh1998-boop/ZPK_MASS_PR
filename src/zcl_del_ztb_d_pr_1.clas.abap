@@ -12,7 +12,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_del_ztb_d_pr_1 IMPLEMENTATION.
+CLASS ZCL_DEL_ZTB_D_PR_1 IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.

@@ -117,6 +117,10 @@ annotate entity zc_d_pr_1 with
   @UI.identification: [{ position: 190 }]
   @EndUserText.label: 'Tracking Number'
   RequirementTracking;
+  @UI.lineItem: [{ position: 200 }]
+  @UI.identification: [{ position: 200 }]
+  @EndUserText.label: 'Requisitioner Name'
+  RequestedBy;
 
 
   @UI.lineItem: [{ position: 190 }]

@@ -56,6 +56,8 @@ ENDCLASS.
 
 
 CLASS zcl_pr_1_implement IMPLEMENTATION.
+
+
   METHOD processing_api.
     DATA: lv_index     TYPE i,
           lv_body_item TYPE string.
@@ -132,27 +134,6 @@ CLASS zcl_pr_1_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD get_endpoint_body_header.
     CASE is_data_grp-type.
       WHEN 'I'.
@@ -167,29 +148,6 @@ CLASS zcl_pr_1_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD insert_header.
     ev_endpoint = '/sap/opu/odata4/sap/api_purchaserequisition_2/srvd_a2x/sap/purchaserequisition/0001/PurchaseReqn'.
 
@@ -199,28 +157,6 @@ CLASS zcl_pr_1_implement IMPLEMENTATION.
       && |"PurReqnDescription": "{ is_data_grp-PurReqnDescription }",|
       && |"PurReqnHeaderNote": "{ is_data_grp-PurReqnHeaderNote }",|.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD update_header.
@@ -239,22 +175,6 @@ CLASS zcl_pr_1_implement IMPLEMENTATION.
       ev_body = substring( val = ev_body len = strlen( ev_body ) - 1 ).
     ENDIF.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD insert_body_item.
@@ -283,27 +203,10 @@ CLASS zcl_pr_1_implement IMPLEMENTATION.
         && |"DeliveryDate": "{ is_data-delivery_date+6(4) }|
                              && |-{ is_data-delivery_date+3(2) }|
                              && |-{ is_data-delivery_date+0(2) }",|
-        && |"RequirementTracking": "{ is_data-requirement_tracking }"|
+        && |"RequirementTracking": "{ is_data-requirement_tracking }",|
+        && |"RequisitionerName": "{ is_data-requested_by }"|
         && |\}|.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD validate_date.
@@ -322,31 +225,6 @@ CLASS zcl_pr_1_implement IMPLEMENTATION.
       ev_error = 'X'.
     ENDIF.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD get_new_status.
@@ -391,17 +269,4 @@ CLASS zcl_pr_1_implement IMPLEMENTATION.
       ELSE file_status-inprocess    " P = In process
     ).
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
 ENDCLASS.
