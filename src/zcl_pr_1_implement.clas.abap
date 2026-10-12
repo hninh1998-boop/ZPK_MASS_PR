@@ -55,7 +55,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_pr_1_implement IMPLEMENTATION.
+CLASS ZCL_PR_1_IMPLEMENT IMPLEMENTATION.
 
 
   METHOD processing_api.
