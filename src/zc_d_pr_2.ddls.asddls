@@ -32,6 +32,7 @@ define view entity zc_d_pr_2
       PurchasingGroup,
       DeliveryDate,
       RequirementTracking,
+      RequisitionerName,
 
       @EndUserText.label: 'Status'
       @Semantics.text: true

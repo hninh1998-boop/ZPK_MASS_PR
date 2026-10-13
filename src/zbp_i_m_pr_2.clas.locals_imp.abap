@@ -379,6 +379,7 @@ CLASS lhc_ManageFilePR2 IMPLEMENTATION.
                PurchasingGroup
                DeliveryDate
                RequirementTracking
+               RequisitionerName
 
                message
                messagetype )
@@ -635,3 +636,4 @@ CLASS lhc_DataFilePR1 IMPLEMENTATION.
   ENDMETHOD.
 
 ENDCLASS.
+

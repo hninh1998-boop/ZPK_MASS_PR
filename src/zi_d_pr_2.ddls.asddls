@@ -37,6 +37,7 @@ define view entity zi_d_pr_2
       purchasing_group           as PurchasingGroup,
       delivery_date              as DeliveryDate,
       requirement_tracking       as RequirementTracking,
+      requisitioner_name         as RequisitionerName,
 
       @Semantics.user.createdBy: true
       created_by                 as CreatedBy,

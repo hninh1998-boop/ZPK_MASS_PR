@@ -41,6 +41,7 @@ CLASS zcl_pr_2_top DEFINITION
              PurchasingGroup          TYPE string,
              DeliveryDate             TYPE string,
              RequirementTracking      TYPE string,
+             RequisitionerName        TYPE string,
            END OF ty_file_upload,
            tt_file_upload TYPE STANDARD TABLE OF ty_file_upload.
   PROTECTED SECTION.
@@ -51,3 +52,4 @@ ENDCLASS.
 
 CLASS ZCL_PR_2_TOP IMPLEMENTATION.
 ENDCLASS.
+
